@@ -16,7 +16,11 @@
 Run from a terminal
 
  `git clone https://github.com/andresmdo/mmail.git`
+
  `cd mmail`
+
  `composer install`
+
  `npm install`
+ 
  `php artisan migrate:fresh --seed`
