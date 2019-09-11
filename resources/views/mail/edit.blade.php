@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <div class="row">
-      <div class="col"><h1>Add mail</h1></div>
+      <div class="col"><h1>Edit mail</h1></div>
     </div>
 
     <div class="row w-100">
@@ -23,14 +23,18 @@
 
             <div class="form-group{{ $errors->has('subject') ? ' has-error' : '' }}">
                 <label for="subject">Subject</label>
-                <input type="text" class="form-control" id="subject" name="subject" placeholder="Mail subject" value="{{ old('subject') }}" aria-describedby="subjectHelpBlock">
+                <input type="text" class="form-control" id="subject" name="subject" placeholder="Mail subject" 
+                  value="{{ (!empty(old('subject'))) ? old('subject') : $mail->subject }}" 
+                  aria-describedby="subjectHelpBlock">
                 @if($errors->has('subject'))
                     <span id="subjectHelpBlock" class="form-text text-danger">{{ $errors->first('subject') }}</span>
                 @endif
             </div>
             <div class="form-group{{ $errors->has('body') ? ' has-error' : '' }}">
                 <label for="body">Body</label>
-                <textarea class="form-control" id="body" name="body" placeholder="Dear X," aria-describedby="bodyHelpBlock">{{ old('body') }}</textarea>
+                <textarea class="form-control" id="body" name="body" placeholder="Dear X," aria-describedby="bodyHelpBlock">
+                  {{ (!empty(old('body'))) ? old('body') : $mail->body }}
+                </textarea>
                 @if($errors->has('body'))
                     <span id="bodyHelpBlock" class="form-text text-danger">{{ $errors->first('body') }}</span>
                 @endif

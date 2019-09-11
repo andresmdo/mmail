@@ -1,18 +1,24 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <div class="row">
-        <h1>Mail</h1>
-        <div class="card" style="width: 18rem;">
-            <div class="card-body">
-              <h5 class="card-title">{{ $mail->subject }}</h5>
-            <h6 class="card-subtitle mb-2 text-muted">{{ $mail->created_at }}{{ !empty($mail->updated_at) ? ' - '.$mail->updated_at : '' }}</h6>
-              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-              <a href="#" class="card-link">Card link</a>
-              <a href="#" class="card-link">Another link</a>
-            </div>
-          </div>
+<div class="container w-75">
+  <div class="d-flex flex-column">
+    <div class="flex-row">
+      <h1>Mail full view</h1>
     </div>
-</div>  
+    <div class="flex-row">
+      <div class="card">
+        <div class="card-header">
+          Subject: <h3 class="card-title">{{ $mail->subject }}</h3>
+        </div>
+        <div class="card-body">
+          <p class="card-text">{{ $mail->body }}</p>
+          <p><small>Created: {{ $mail->created_at }}{{ !empty($mail->updated_at) ? ' - Updated '.$mail->updated_at : '' }}</small></p>
+          <a href="{{ route('mail.edit', $mail->id) }}" class="card-link">Edit</a>
+          <a href="{{ URL::previous() }}" class="card-link">Back</a>
+        </div>
+      </div>
+    </div>
+  </div>  
+</div>
 @endsection

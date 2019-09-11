@@ -21,8 +21,14 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home.index');
-Route::get('/mail/list', 'MailController@list')->name('mail.list');
-Route::get('/mail/add', 'MailController@add')->name('mail.add');
-Route::post('/mail/add', 'MailController@save')->name('mail.save');
-Route::get('/mail/{id}', 'MailController@view')->name('mail.view')->where('id', '[0-9]+');
+Route::middleware(['auth'])->group(function () {
+    // Route::get('/home', 'HomeController@index')->name('home.index');
+    Route::get('/mail/list', 'MailController@list')->name('mail.list');
+    Route::get('/mail/add', 'MailController@add')->name('mail.add');
+    Route::post('/mail/add', 'MailController@save')->name('mail.save');
+    Route::get('/mail/{id}', 'MailController@view')->name('mail.view')->where('id', '[0-9]+');
+    Route::get('/mail/{id}/edit', 'MailController@edit')->name('mail.edit')->where('id', '[0-9]+');
+
+    Route::resource('home', 'HomeController');
+    Route::resource('mails', 'MMailController');
+});

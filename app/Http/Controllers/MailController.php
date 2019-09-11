@@ -9,10 +9,16 @@ use Illuminate\Support\Facades\DB;
 
 class MailController extends Controller
 {
-    public function view($mail)
+    public function view(int $id, Request $request)
     {
-        if (is_int($mail)) {
-            $mail = Mail::find($mail);
+        $mail = Mail::find($id);
+
+        if (!$mail->id) {
+            return abort(404, 'Mail not found!');
+        }
+
+        if ($mail->user->id !== Auth::id()) {
+            return abort(403, 'Cannot see this ¯\_(ツ)_/¯');
         }
 
         return view('mail.view', ['mail' => $mail]);
@@ -20,9 +26,12 @@ class MailController extends Controller
 
     public function list(Request $request)
     {
-        $mails = DB::table('mails')->where('user_id', '=', Auth::id())->get();
+        $pagemax = 10;
+        $mails = DB::table('mails')->where('user_id', '=', Auth::id())->paginate($pagemax);
 
-        return view('mail.list', ['mails' => $mails]);
+        $indexfix = ($mails->currentPage() - 1) * $mails->perPage();
+
+        return view('mail.list', ['mails' => $mails, 'total' => $mails->total(), 'indexfix' => $indexfix]);
     }
 
     public function add(Request $request)
@@ -30,16 +39,40 @@ class MailController extends Controller
         return view('mail.add');
     }
 
-    public function save(Request $request)
+    public function edit(int $id)
+    {
+        $mail = Mail::find($id);
+
+        if (!$mail->id) {
+            return abort(404, 'Mail not found!');
+        }
+
+        return view('mail.edit')->with('mail', $mail);
+    }
+
+    public function save(Request $request, Mail $mail)
     {
         $data = $request->validate([
             'subject' => 'required|max:255',
             'body' => 'required',
         ]);
-        $data['user_id'] = Auth::id();
+        $mail = new \App\Mail($data);
+        $mail->user()->associate(Auth::user());
+        $mail->save();
 
-        $mail = tap(new \App\Mail($data))->save();
+        return redirect()->route('mail.view', ['id' => $mail->id]);
+    }
 
-        return redirect('mail.view')->with(['mail' => $mail]);
+    public function update(Request $request, Mail $mail)
+    {
+        $request->validate([
+            'subject' => 'required|max:255',
+            'body' => 'required',
+        ]);
+
+        $mail->update($request->all());
+
+        return redirect()->route('mail.view')
+                        ->with('success', 'Product updated successfully');
     }
 }

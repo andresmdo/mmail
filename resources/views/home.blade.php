@@ -19,7 +19,7 @@
         @else
           <p class="lead">You don't have any campaign created, start now!</p>
           <p class="lead">
-            <a class="btn btn-primary btn-lg" href="#" role="button">Create new!</a>
+            <a class="btn btn-primary btn-lg" href="{{ route('mail.add') }}" role="button">Create new!</a>
           </p>
         @endif
       </div>
