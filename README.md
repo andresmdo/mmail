@@ -23,4 +23,6 @@ Run from a terminal
 
  `npm install run`
 
+ `npm run watch`
+
  `php artisan migrate:fresh --seed`
