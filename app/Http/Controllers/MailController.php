@@ -47,10 +47,14 @@ class MailController extends Controller
             return abort(404, 'Mail not found!');
         }
 
+        if ($mail->user->id !== Auth::id()) {
+            return abort(403, 'Cannot do this ¯\_(ツ)_/¯');
+        }
+
         return view('mail.edit')->with('mail', $mail);
     }
 
-    public function save(Request $request, Mail $mail)
+    public function save(Request $request)
     {
         $data = $request->validate([
             'subject' => 'required|max:255',
@@ -63,16 +67,19 @@ class MailController extends Controller
         return redirect()->route('mail.view', ['id' => $mail->id]);
     }
 
-    public function update(Request $request, Mail $mail)
+    public function update(Mail $mail, Request $request)
     {
-        $request->validate([
+        if ($mail->user->id !== Auth::id()) {
+            return abort(403, 'Cannot do this ¯\_(ツ)_/¯');
+        }
+
+        $data = $request->validate([
             'subject' => 'required|max:255',
             'body' => 'required',
         ]);
 
         $mail->update($request->all());
 
-        return redirect()->route('mail.view')
-                        ->with('success', 'Product updated successfully');
+        return redirect()->route('mail.view', ['id' => $mail->id]);
     }
 }

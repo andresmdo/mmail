@@ -8,8 +8,9 @@
 
     <div class="row w-100">
       <div class="col">
-        <form action="{{ route('mail.save') }}" method="post">
+        <form action="{{ route('mail.update', $mail) }}" method="post">
             @csrf
+            @method('PUT')
             @if ($errors->any())
                 <div class="alert alert-danger" role="alert">
                     Please fix the following errors
@@ -39,12 +40,17 @@
                     <span id="bodyHelpBlock" class="form-text text-danger">{{ $errors->first('body') }}</span>
                 @endif
             </div>
-            <div class="row">
-              <div class="col" id="DISABLED-text-editrr"></div>
-            </div>          
-            <button type="submit" class="btn btn-default">Submit</button>
+            <div class="form-group">
+              <button type="submit" class="btn btn-default">Submit</button>
+              <a href="{{ URL::previous() }}" class="card-link">Back</a>
+            </div>
         </form>
-      </div>
+      </div>  
     </div>
+
+    <div class="row">
+      <div class="col" id="DISABLED-text-editrr"></div>
+    </div>          
+      
 </div>  
 @endsection

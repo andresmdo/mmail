@@ -4,6 +4,9 @@
 <div class="container">
     <div class="row">
       <div class="col"><h1>Add mail</h1></div>
+      <div class="pull-right">
+        <a href="{{ URL::previous() }}" class="card-link">Back</a>
+      </div>
     </div>
 
     <div class="row w-100">
@@ -37,8 +40,11 @@
             </div>
             <div class="row">
               <div class="col" id="DISABLED-text-editrr"></div>
-            </div>          
-            <button type="submit" class="btn btn-default">Submit</button>
+            </div>      
+            <div class="form-group">
+                <button type="submit" class="btn btn-default">Submit</button>
+                <a href="{{ URL::previous() }}" class="card-link">Back</a>
+            </div>    
         </form>
       </div>
     </div>

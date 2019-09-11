@@ -23,7 +23,7 @@ class HomeController extends Controller
      */
     public function index(Request $request)
     {
-        $mails = DB::table('mails')->where('user_id', '=', Auth::id())->paginate(10);
+        $mails = DB::table('mails')->where('user_id', '=', Auth::id())->get();
         $amount = count($mails);
 
         return view('home', ['mails' => $mails, 'amount' => $amount]);

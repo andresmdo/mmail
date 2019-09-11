@@ -21,6 +21,6 @@ Run from a terminal
 
  `composer install`
 
- `npm install`
- 
+ `npm install run`
+
  `php artisan migrate:fresh --seed`
