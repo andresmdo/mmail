@@ -26,15 +26,15 @@
               {{ $mail->subject }}
             </button>
             <div id="mail{{$mail->id}}" class="collapse" aria-labelledby="heading{{$mail->id}}" class="w-50">
-              {{ $mail->body }}
+              {{-- {{ $mail->body }} --}}
               <div>
-                <form action="{{ route('mails.destroy',$mail->id) }}" method="POST">
+                {{-- <form action="{{ route('mails.destroy',$mail->id) }}" method="POST"> --}}
                   <a class="btn" href="{{ route('mail.view',$mail->id) }}">Show</a>
                   <a class="btn" href="{{ route('mail.edit',$mail->id) }}">Edit</a>
 
-                  @csrf
-                  @method('DELETE')
-                  <button type="submit" class="btn btn-secondary">Delete</button>
+                  {{-- @csrf
+                  @method('DELETE') --}}
+                  {{-- <button type="submit" class="btn btn-secondary">Delete</button> --}}
                 </form>
               </div>
             </div>

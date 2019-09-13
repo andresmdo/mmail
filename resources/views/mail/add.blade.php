@@ -26,20 +26,20 @@
 
             <div class="form-group{{ $errors->has('subject') ? ' has-error' : '' }}">
                 <label for="subject">Subject</label>
-                <input type="text" class="form-control" id="subject" name="subject" placeholder="Mail subject" value="{{ old('subject') }}" aria-describedby="subjectHelpBlock">
                 @if($errors->has('subject'))
                     <span id="subjectHelpBlock" class="form-text text-danger">{{ $errors->first('subject') }}</span>
                 @endif
+                <input type="text" class="form-control" id="subject" name="subject" placeholder="Mail subject" value="{{ old('subject') }}" aria-describedby="subjectHelpBlock">
             </div>
             <div class="form-group{{ $errors->has('body') ? ' has-error' : '' }}">
                 <label for="body">Body</label>
-                <textarea class="form-control" id="body" name="body" placeholder="Dear X," aria-describedby="bodyHelpBlock">{{ old('body') }}</textarea>
                 @if($errors->has('body'))
                     <span id="bodyHelpBlock" class="form-text text-danger">{{ $errors->first('body') }}</span>
                 @endif
+                <textarea class="form-control d-none" id="body" name="body" placeholder="Dear X," aria-describedby="bodyHelpBlock">{{ old('body') }}</textarea>
             </div>
             <div class="row">
-              <div class="col" id="DISABLED-text-editrr"></div>
+              <div class="col" id="text-editrr"></div>
             </div>      
             <div class="form-group">
                 <button type="submit" class="btn btn-default">Submit</button>
@@ -49,4 +49,8 @@
       </div>
     </div>
 </div>  
+@endsection
+
+@section('js')
+const body_rr = '';
 @endsection
