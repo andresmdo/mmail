@@ -58,9 +58,6 @@
         "post-create-project-cmd": [
             "@php artisan key:generate --ansi"
         ],
-        "post-install-cmd": [
-            "npm install"
-        ],
         "create-database": "php artisan migrate:fresh --seed"
     }
 }
